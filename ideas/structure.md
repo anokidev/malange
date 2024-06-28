@@ -75,7 +75,7 @@ A long directive is structured like this:
 A short directive is structured like this:
 
 ```malange
-[directive :: ...] # The three-dot is because it depends on what kind of directive.
+[directive :: ... /] # The three-dot is because it depends on what kind of directive.
 ```
 
 Here are the list of directives:
@@ -103,7 +103,7 @@ This directive can be one-liner, no indentation is required:
 The short directive version:
 
 ```malange
-[script :: code goes here]
+[script :: code goes here /]
 ```
 
 ### `[match]`
@@ -131,13 +131,13 @@ Here is how it works:
 The short directive version:
 
 ```malange
-[match result :: 10: ... , 9: ... , default: ...]
+[match result :: 10: ... , 9: ... , default: ... /]
 ```
 
 Tips: You can construct a ternary operator by using this directive.
 
 ```malange
-[match result :: True: ... , False: ...]
+[match result :: True: ... , False: ... /]
 ```
 
 ### `[cond]`
@@ -165,12 +165,12 @@ The result is:
 The short directive version:
 
 ```malange
-[cond x < 10: ... , x < 10 and y == true: ... , else: ...]
+[cond x < 10: ... , x < 10 and y == true: ... , else: ... /]
 ```
 
-### `[each]`
+### `[iterate]`
 
-Each is similar to looping.
+Similar to looping.
 
 ```malange
 [script]
@@ -194,5 +194,5 @@ The result:
 The short directive version:
 
 ```malange
-[each i in variable :: <h1>Your score is: {i}</h1>]
+[each i in variable :: <h1>Your score is: {i}</h1> /]
 ```

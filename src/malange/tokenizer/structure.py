@@ -13,6 +13,7 @@
 class StructureTokenizer:
     """This tokenizer will... tokenize basic structure of Malange."""
 
-    pass
+    def __str__(self) -> str:
+        return "structure -> {self.type}({self.exe})"
 
 

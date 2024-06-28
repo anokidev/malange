@@ -31,3 +31,7 @@ allows for SSR, due to the limitation of Python.
 <button on:click={change_the_name()}>Change the Name</button>
 
 ```
+
+1. Note: The code is still under construction, relax and chill!
+2. And yes, I am a casual programmer. So don't expect a lot tbh.
+3. I am still dealing with school, so forgive me for slow dev.
