@@ -1,7 +1,7 @@
-# Malange Syntax
+# Malange
 
 Malange is supposed to be a template language that is
-not just powerful as a template language, but can act
+not just a generic template language, but can act
 like a front-end template language, e.g. Svelte.
 
 The goal of Malange is:
