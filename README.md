@@ -10,6 +10,8 @@ The goal of Malange is:
 - Template system in a simple manner.
 - Simple and easy-to-understand syntax.
 
+May be integrated with Pubian.
+
 ## Injection
 
 Malange, just like Svelte, supports the injection of
