@@ -15,9 +15,9 @@ class MBPTokenizer:
     def __init__(self, result: typing.Union[re.Match[str], None] = None):
 
         if result is None:
-            self.type:  str | None = None
-            self.start: int | None = None
-            self.end:   int | None = None
+            self.type:  typing.Optional[str] = None
+            self.start: typing.Optional[int] = None
+            self.end:   typing.Optional[int] = None
         else:
             # Check the text result.
             if result.group() == "[/": # [/ is used for opening block.
