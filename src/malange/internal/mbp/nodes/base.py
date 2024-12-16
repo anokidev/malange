@@ -13,11 +13,6 @@ class MBPBlock:
         self.ARGUMENT     = None
         self.LAYER        = layer + 1
 
-class MBPArgument:
-    '''The base class for arguments, one of the many node types in MBP AST.'''
-    def __init__(self, layer: int):
-        self.LAYER        = layer
-
 class MBPContent:
     '''The base class for contents, one of the many node types in MBP AST.'''
     def __init__(self, layer: int):

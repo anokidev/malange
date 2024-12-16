@@ -26,6 +26,12 @@ class MBPTokenizer:
                 self.type = "MBP_CLOSE"
             elif result.group() == ":::": # Detect if it is an opening block end.
                 self.type = "MBP_END"
+            elif result.group() == "(/": # Detect if it is an opening sub-block.
+                self.type = "MBP_SUBSTART"
+            elif result.group == "/)": # Detect if it is a closing sub-block.
+                self.type = "MBP_SUBCLOSE"
+            elif result.group == ":)":
+                self.type = "MBP_SUBEND"
             else: # Anything other than that means a mistake in the REGEX (class MBP), thus an error.
                 raise 
 
@@ -41,7 +47,7 @@ class MBPLexer:
 
         # This is the tokens.
         results: list[re.Match[str]] = list(re.finditer(
-            r"(\[\/(^[\/\[\]])\:\:\:)" + r"|(\/\])", text))
+            r"(\\\[/)|(\\\:\:\:)|(\\\/\])|(\[\/)|(\:\:\:)|(\/\])", text))
         tokens: list[MBPTokenizer] = []
         for result in results:
             # Escaped elements are skipped.
@@ -50,4 +56,23 @@ class MBPLexer:
             else:
                 tokens.append(MBPTokenizer(result))
         self.tokens: list[MBPTokenizer] = tokens
+
+class MBPSubLexer:
+    '''The lexer class used for detecting subblocks.'''
+
+    def __init__(self, text: str):
+        '''Scan the code line.'''
+
+        # This is the tokens.
+        results: list[re.Match[str]] = list(re.finditer(
+            r"(\\\(/)|(\\\:\))|(\\\/\))|(\(\/)|(\:\))|(\/\))", text))
+        tokens: list[MBPTokenizer] = []
+        for result in results:
+            # Escaped elements are skipped.
+            if result.group() in (r"\:)", r"\(/", r"\/)"):
+                pass
+            else:
+                tokens.append(MBPTokenizer(result))
+        self.tokens: list[MBPTokenizer] = tokens
+
 

@@ -186,17 +186,17 @@ Switch block is useful for conditional rendering.
 ```malange
 [/switch i:::
 
-[/case 0:::
+(\case 0:::
     a
-/]
+/)
 
-[/case 1:::
+(/case 1:::
     b
-/]
+/)
 
-[/case::: <!--For "else" condition.-->
+(/default::: <!--For "else" condition.-->
     c
-/]
+/)
 
 /]
 ```
@@ -210,12 +210,12 @@ Similar to switch block.
 ```malange
 [/if i < j:::
     a
-[/elif i == j:::
+(/elif i == j:::
     b
-/]
-[/else:::
+/)
+(/else:::
     c
-/]
+/)
 /]
 ```
 

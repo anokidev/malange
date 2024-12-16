@@ -8,19 +8,24 @@
 
 import re
 
-from .base import MBPBlock, MBPArgument
+from .base import MBPBlock
 
-class ScriptArgument(MBPArgument):
-    '''The class for script arguments.'''
+class ScriptBlock(MBPBlock):
+    '''Script block.'''
 
-    def __init__(self, layer: int, arg: str):
+    def __init__(self, content: str, args: str, layer: int):
         super().__init__(layer)
+        self.ARGUMENTS = self.__handle_args(args)
+#####   # self.CONTENT    = process_code(content, self.layer)
+
+    def __handle_args(self, args: str):
+        '''Handle arguments.'''
 
         # First step is to regex the args.
         backend: list[re.Match[str]] = list(re.finditer(
-            r"backend=\(([^)]+)\)", re.sub(r'\s+', '', arg)))
+            r"backend=\(([^)]+)\)", re.sub(r'\s+', '', args)))
         src: list[re.Match[str]] = list(re.finditer(
-            r"src=(\S+)", re.sub(r'\s+', '', arg)))
+            r"src=(\S+)", re.sub(r'\s+', '', args)))
 
         # Second step is to ensure that there can only be one backend and one src.
         if len(backend) > 1:
@@ -35,27 +40,21 @@ class ScriptArgument(MBPArgument):
             if re.search(r",,+", backend_package):
                 raise
             # If not, get the package list.
-            self.backend_package_list: list[str] = backend_package.split(',')
+            self.__backend_package_list: list[str] = backend_package.split(',')
         except IndexError:
-            self.backend_package_list: list[str] = []
+            self.__backend_package_list: list[str] = []
 
         # Fourth step is to check the syntax of src.
         try:
-            self.src_path: str = src[0].group()
+            self.__src_path: str = src[0].group()
             # If the src is like this: '..." or the opposite, error.
-            if self.src_path[0] != self.src_path[-1]:
+            if self.__src_path[0] != self.src_path[-1]:
                 raise 
         except IndexError:
             self.src_path: str = ""
 
         # Save the args.
-        self.backend = self.backend_package_list,
-        self.src     = self.src_path
-
-class ScriptBlock(MBPBlock):
-    '''Script block.'''
-
-    def __init__(self, content: str, arg: str, layer: int):
-        super().__init__(layer)
-        self.ARGUMENT = ScriptArgument(self.LAYER, arg)
-#####        # self.CONTENT    = process_code(content, self.layer)
+        class arguments:
+            backend = self.__backend_package_list
+            src     = self.__src_path
+        self.ARGUMENTS = arguments
